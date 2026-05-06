@@ -8,7 +8,6 @@ export function formatClasses(payload) {
     ["starts_at", "Starts"],
     ["presence_type", "Type"],
     ["title", "Title"],
-    [(row) => row.account?.name || "", "Account"],
     [(row) => row.teacher?.name || "", "Teacher"],
     [(row) => booleanLabel(row.requires_booking), "Requires booking"],
     [(row) => spotLabel(row), "Spots"]

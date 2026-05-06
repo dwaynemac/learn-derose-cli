@@ -379,6 +379,8 @@ test("classes list forwards class filters and prints teacher names", async () =>
     );
     assert.match(stdout, /Teacher/);
     assert.match(stdout, /Ana Gomez/);
+    assert.doesNotMatch(stdout, /Account/);
+    assert.doesNotMatch(stdout, /DeROSE Palermo/);
   });
 });
 
