@@ -21,13 +21,15 @@ Public clients should use PKCE. The CLI always uses PKCE with S256.
 
 ## Usage
 
+The package is not published to npm yet. Run it from the GitHub repo:
+
 ```bash
-npx learn-derose auth login
-npx learn-derose classes list --from 2026-05-05 --to 2026-05-10 --json
-npx learn-derose classes list --teacher-id 42 --json
-npx learn-derose bookings list --state active --json
-npx learn-derose bookings create --post-id 123 --date 2026-05-06 --json
-npx learn-derose bookings cancel 987 --json
+npx --yes github:dwaynemac/learn-derose-cli auth login
+npx --yes github:dwaynemac/learn-derose-cli classes list --from 2026-05-05 --to 2026-05-10 --json
+npx --yes github:dwaynemac/learn-derose-cli classes list --teacher-id 42 --json
+npx --yes github:dwaynemac/learn-derose-cli bookings list --state active --json
+npx --yes github:dwaynemac/learn-derose-cli bookings create --post-id 123 --date 2026-05-06 --json
+npx --yes github:dwaynemac/learn-derose-cli bookings cancel 987 --json
 ```
 
 Add `--verbose` to print request diagnostics to stderr. For agents, this keeps
@@ -40,7 +42,7 @@ permissions.
 Local development can run the package directly:
 
 ```bash
-npx ./packages/learn-derose --help
+npx . --help
 ```
 
 ## Commands
@@ -97,8 +99,8 @@ The CLI can read these environment variables instead of command-line flags:
 Use either flag for request-level logs:
 
 ```bash
-npx learn-derose auth login --verbose
-LEARN_DEROSE_DEBUG=1 npx learn-derose bookings list --json
+npx --yes github:dwaynemac/learn-derose-cli auth login --verbose
+LEARN_DEROSE_DEBUG=1 npx --yes github:dwaynemac/learn-derose-cli bookings list --json
 ```
 
 Logs include the issuer, callback URL, and HTTP method/status. They do not print
@@ -111,5 +113,5 @@ the browser authorization succeeded but the CLI could not exchange the code at
 as your browser. Run with:
 
 ```bash
-NODE_EXTRA_CA_CERTS="$(mkcert -CAROOT)/rootCA.pem" npx learn-derose auth login --verbose
+NODE_EXTRA_CA_CERTS="$(mkcert -CAROOT)/rootCA.pem" npx --yes github:dwaynemac/learn-derose-cli auth login --verbose
 ```

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Learn DeROSE CLI"
+  short_description: "Manage Learn DeROSE bookings"
+  default_prompt: "Use $learn-derose-cli to show my active Learn DeROSE bookings."
