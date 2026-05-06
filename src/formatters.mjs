@@ -10,6 +10,7 @@ export function formatClasses(payload) {
     ["title", "Title"],
     [(row) => row.account?.name || "", "Account"],
     [(row) => row.teacher?.name || "", "Teacher"],
+    [(row) => booleanLabel(row.requires_booking), "Requires booking"],
     [(row) => spotLabel(row), "Spots"]
   ]);
 }
@@ -35,6 +36,12 @@ function spotLabel(row) {
   if (row.can_join_waiting_list) return `waitlist (${row.waiting_list_count || 0})`;
   if (row.available_spots === null || row.available_spots === undefined) return "";
   return String(row.available_spots);
+}
+
+function booleanLabel(value) {
+  if (value === true) return "yes";
+  if (value === false) return "no";
+  return "";
 }
 
 function formatTable(rows, columns) {

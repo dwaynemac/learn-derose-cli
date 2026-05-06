@@ -381,3 +381,57 @@ test("classes list forwards class filters and prints teacher names", async () =>
     assert.match(stdout, /Ana Gomez/);
   });
 });
+
+test("classes list prints whether each class requires booking", async () => {
+  const profile = {
+    issuer: "https://learn.derose.app",
+    apiBaseUrl: "https://learn.derose.app/api/v1",
+    clientId: "client-123",
+    token: {
+      accessToken: "access-token",
+      refreshToken: "refresh-token",
+      expiresAt: "2026-05-05T11:00:00.000Z"
+    }
+  };
+
+  await withConfig(profile, async (configPath) => {
+    let stdout = "";
+
+    const exitCode = await runCli(
+      ["classes", "list", "--config", configPath],
+      {
+        now: () => new Date("2026-05-05T10:00:00.000Z"),
+        fetch: async () => {
+          return jsonResponse({
+            data: [
+              {
+                post_id: 123,
+                booked_date: "2026-05-06",
+                starts_at: "2026-05-06T10:00:00-03:00",
+                presence_type: "online",
+                title: "Morning practice",
+                requires_booking: true
+              },
+              {
+                post_id: 124,
+                booked_date: "2026-05-06",
+                starts_at: "2026-05-06T12:00:00-03:00",
+                presence_type: "online",
+                title: "Study group",
+                requires_booking: false
+              }
+            ]
+          });
+        },
+        stdout: { write: (value) => { stdout += value; } },
+        stderr: { write: () => {} },
+        env: {}
+      }
+    );
+
+    assert.equal(exitCode, 0);
+    assert.match(stdout, /Requires booking/);
+    assert.match(stdout, /Morning practice\s+yes/);
+    assert.match(stdout, /Study group\s+no/);
+  });
+});
