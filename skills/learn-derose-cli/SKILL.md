@@ -11,10 +11,10 @@ Use this CLI when the user wants help managing their Learn DeROSE class schedule
 
 Prefer `--json` when you need reliable structured output. Keep diagnostics on stderr, and never expose OAuth tokens, authorization codes, client secrets, or PKCE verifiers.
 
-If the command is installed, use `learn-derose`. Otherwise run the GitHub package:
+If the command is installed, use `learn-derose`. Otherwise run the published package with `npx`:
 
 ```bash
-npx --yes github:dwaynemac/learn-derose-cli --help
+npx --yes learn-derose --help
 ```
 
 When working inside this repo, use asdf Node and the local package:
@@ -29,13 +29,13 @@ asdf exec node bin/learn-derose.mjs --help
 2. Check sign-in status before managing bookings:
 
 ```bash
-npx --yes github:dwaynemac/learn-derose-cli auth status --json
+npx --yes learn-derose auth status --json
 ```
 
 3. If the user is not signed in, start login and let them complete the browser step:
 
 ```bash
-npx --yes github:dwaynemac/learn-derose-cli auth login
+npx --yes learn-derose auth login
 ```
 
 4. Run the booking command that matches the user's intent. Use `--json` for agent/script workflows and parse stdout only.
@@ -78,20 +78,20 @@ Use `--date` for booking creation. It maps to the API's `booked_date`.
 List classes for a date range:
 
 ```bash
-npx --yes github:dwaynemac/learn-derose-cli classes list --from 2026-05-05 --to 2026-05-10 --json
+npx --yes learn-derose classes list --from 2026-05-05 --to 2026-05-10 --json
 ```
 
 List active bookings:
 
 ```bash
-npx --yes github:dwaynemac/learn-derose-cli bookings list --state active --json
+npx --yes learn-derose bookings list --state active --json
 ```
 
 Create and cancel a booking:
 
 ```bash
-npx --yes github:dwaynemac/learn-derose-cli bookings create --post-id 123 --date 2026-05-06 --json
-npx --yes github:dwaynemac/learn-derose-cli bookings cancel 987 --json
+npx --yes learn-derose bookings create --post-id 123 --date 2026-05-06 --json
+npx --yes learn-derose bookings cancel 987 --json
 ```
 
 ## Configuration
@@ -112,7 +112,7 @@ Default production API base is `https://learn.derose.app/api/v1`. Default bookin
 For local Learn development against `https://learn.padma.test`, Node may need the mkcert CA:
 
 ```bash
-NODE_EXTRA_CA_CERTS="$(mkcert -CAROOT)/rootCA.pem" npx --yes github:dwaynemac/learn-derose-cli auth login --verbose
+NODE_EXTRA_CA_CERTS="$(mkcert -CAROOT)/rootCA.pem" npx --yes learn-derose auth login --verbose
 ```
 
 ## Guardrails

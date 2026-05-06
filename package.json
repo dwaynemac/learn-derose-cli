@@ -8,6 +8,8 @@
   },
   "files": [
     "bin",
+    "docs",
+    "skills",
     "src",
     "README.md"
   ],
