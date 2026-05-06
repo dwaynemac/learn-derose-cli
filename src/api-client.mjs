@@ -16,15 +16,23 @@ export class LearnDeroseApiClient {
     this.logger = logger;
   }
 
-  listBookableClasses(filters = {}) {
-    return this.request("GET", "/bookable_classes", {
+  listClasses(filters = {}) {
+    return this.request("GET", "/classes", {
       query: {
         from: filters.from,
         to: filters.to,
         account_id: filters.accountId,
         presence_type: filters.presenceType,
-        teacher_id: filters.teacherId
+        teacher_id: filters.teacherId,
+        requires_booking: filters.requiresBooking ? true : undefined
       }
+    });
+  }
+
+  listBookableClasses(filters = {}) {
+    return this.listClasses({
+      ...filters,
+      requiresBooking: true
     });
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "learn-derose",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "CLI for authenticating with Learn OAuth and managing bookings.",
   "type": "module",
   "bin": {

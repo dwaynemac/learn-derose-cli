@@ -1,7 +1,7 @@
 import { ConfigStore, defaultConfigPath } from "./config-store.mjs";
 import { LearnDeroseApiClient } from "./api-client.mjs";
 import { CliError } from "./errors.mjs";
-import { formatBookableClasses, formatBookings } from "./formatters.mjs";
+import { formatBookings, formatClasses } from "./formatters.mjs";
 import {
   DEFAULT_API_BASE_URL,
   DEFAULT_CLIENT_ID,
@@ -23,6 +23,7 @@ import { createLogger, debugEnabled } from "./logger.mjs";
 const BOOLEAN_FLAGS = new Set([
   "help",
   "json",
+  "requiresBooking",
   "waitlist",
   "noOpen",
   "revoke",
@@ -55,11 +56,11 @@ export async function runCli(argv = process.argv.slice(2), deps = {}) {
     let formatter;
 
     if (resource === "classes" && action === "list") {
-      payload = await client.listBookableClasses(parsed.options);
-      formatter = formatBookableClasses;
+      payload = await client.listClasses(parsed.options);
+      formatter = formatClasses;
     } else if (resource === "bookable-classes" && action === "list") {
       payload = await client.listBookableClasses(parsed.options);
-      formatter = formatBookableClasses;
+      formatter = formatClasses;
     } else if (resource === "bookings" && action === "list") {
       payload = await client.listBookings(parsed.options);
       formatter = formatBookings;
@@ -395,7 +396,7 @@ Usage:
   learn-derose auth login
   learn-derose auth status [--json]
   learn-derose auth logout [--revoke]
-  learn-derose classes list [--from YYYY-MM-DD] [--to YYYY-MM-DD] [--account-id ID] [--teacher-id ID] [--presence-type online|in_person] [--json]
+  learn-derose classes list [--from YYYY-MM-DD] [--to YYYY-MM-DD] [--account-id ID] [--teacher-id ID] [--presence-type online|in_person] [--requires-booking] [--json]
   learn-derose bookings list [--state active|history|all] [--from YYYY-MM-DD] [--to YYYY-MM-DD] [--json]
   learn-derose bookings show BOOKING_ID [--json]
   learn-derose bookings create --post-id POST_ID --date YYYY-MM-DD [--waitlist] [--json]

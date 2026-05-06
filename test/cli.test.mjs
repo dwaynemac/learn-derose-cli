@@ -134,6 +134,19 @@ test("help includes the account filter for class listing", async () => {
   assert.match(stdout, /--account-id ID/);
 });
 
+test("help includes the requires booking filter for class listing", async () => {
+  let stdout = "";
+
+  const exitCode = await runCli(["help"], {
+    stdout: { write: (value) => { stdout += value; } },
+    stderr: { write: () => {} },
+    env: {}
+  });
+
+  assert.equal(exitCode, 0);
+  assert.match(stdout, /--requires-booking/);
+});
+
 test("auth logout --revoke revokes access and refresh tokens", async () => {
   const profile = {
     issuer: "https://learn.derose.app",
@@ -304,7 +317,7 @@ test("bookings create maps CLI flags to the API booking body", async () => {
   });
 });
 
-test("classes list forwards teacher filter and prints teacher names", async () => {
+test("classes list forwards class filters and prints teacher names", async () => {
   const profile = {
     issuer: "https://learn.derose.app",
     apiBaseUrl: "https://learn.derose.app/api/v1",
@@ -330,6 +343,7 @@ test("classes list forwards teacher filter and prints teacher names", async () =
         "2026-05-10",
         "--teacher-id",
         "42",
+        "--requires-booking",
         "--config",
         configPath
       ],
@@ -361,7 +375,7 @@ test("classes list forwards teacher filter and prints teacher names", async () =
     assert.equal(exitCode, 0);
     assert.equal(
       calls[0].url,
-      "https://learn.derose.app/api/v1/bookable_classes?from=2026-05-05&to=2026-05-10&teacher_id=42"
+      "https://learn.derose.app/api/v1/classes?from=2026-05-05&to=2026-05-10&teacher_id=42&requires_booking=true"
     );
     assert.match(stdout, /Teacher/);
     assert.match(stdout, /Ana Gomez/);

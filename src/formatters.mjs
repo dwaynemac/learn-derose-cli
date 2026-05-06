@@ -1,6 +1,6 @@
-export function formatBookableClasses(payload) {
+export function formatClasses(payload) {
   const rows = payload?.data || [];
-  if (rows.length === 0) return "No bookable classes found.\n";
+  if (rows.length === 0) return "No classes found.\n";
 
   return formatTable(rows, [
     ["post_id", "Post"],
@@ -13,6 +13,8 @@ export function formatBookableClasses(payload) {
     [(row) => spotLabel(row), "Spots"]
   ]);
 }
+
+export const formatBookableClasses = formatClasses;
 
 export function formatBookings(payload) {
   const rows = Array.isArray(payload?.data) ? payload.data : [payload?.data].filter(Boolean);

@@ -46,7 +46,7 @@ npx --yes learn-derose auth login
 Show available classes:
 
 ```bash
-learn-derose classes list [--from YYYY-MM-DD] [--to YYYY-MM-DD] [--account-id ID] [--teacher-id ID] [--presence-type online|in_person] [--json]
+learn-derose classes list [--from YYYY-MM-DD] [--to YYYY-MM-DD] [--account-id ID] [--teacher-id ID] [--presence-type online|in_person] [--requires-booking] [--json]
 ```
 
 Show the user's bookings:
@@ -80,6 +80,8 @@ List classes for a date range:
 ```bash
 npx --yes learn-derose classes list --from 2026-05-05 --to 2026-05-10 --json
 ```
+
+Add `--requires-booking` when the user only wants classes that can be booked.
 
 List active bookings:
 

@@ -21,7 +21,7 @@ function jsonResponse(body, { status = 200, headers = {} } = {}) {
   };
 }
 
-test("listBookableClasses calls the documented endpoint with read filters", async () => {
+test("listClasses calls the documented endpoint with read filters", async () => {
   const calls = [];
   const client = new LearnDeroseApiClient({
     apiBaseUrl: "https://learn.derose.app/api/v1",
@@ -32,18 +32,19 @@ test("listBookableClasses calls the documented endpoint with read filters", asyn
     }
   });
 
-  await client.listBookableClasses({
+  await client.listClasses({
     from: "2026-05-05",
     to: "2026-05-10",
     presenceType: "online",
     accountId: "15",
-    teacherId: "42"
+    teacherId: "42",
+    requiresBooking: true
   });
 
   assert.equal(calls.length, 1);
   assert.equal(
     calls[0].url,
-    "https://learn.derose.app/api/v1/bookable_classes?from=2026-05-05&to=2026-05-10&account_id=15&presence_type=online&teacher_id=42"
+    "https://learn.derose.app/api/v1/classes?from=2026-05-05&to=2026-05-10&account_id=15&presence_type=online&teacher_id=42&requires_booking=true"
   );
   assert.equal(calls[0].options.method, "GET");
   assert.equal(calls[0].options.headers.Authorization, "Bearer access-token");
