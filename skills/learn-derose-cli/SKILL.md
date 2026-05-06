@@ -49,6 +49,14 @@ Show available classes:
 learn-derose classes list [--from YYYY-MM-DD] [--to YYYY-MM-DD] [--account-id ID] [--teacher-id ID] [--presence-type online|in_person] [--requires-booking] [--json]
 ```
 
+Useful class filters:
+
+- `--from` and `--to`: ISO dates for the class occurrence range.
+- `--account-id`: limit classes to one DeROSE account.
+- `--teacher-id`: limit classes by teacher or substitute teacher.
+- `--presence-type online|in_person`: limit classes by class format.
+- `--requires-booking`: show only classes that require a booking. Without it, `classes list` can include non-booking classes.
+
 Show the user's bookings:
 
 ```bash
@@ -73,6 +81,14 @@ learn-derose auth logout [--revoke]
 
 Use `--date` for booking creation. It maps to the API's `booked_date`.
 
+Useful global options:
+
+- `--json`: use for scripts and agents; parse stdout only.
+- `--locale LOCALE`: sends `X-Locale` to Learn.
+- `--profile NAME`: selects a saved auth profile.
+- `--config PATH`: uses a specific config file.
+- `--verbose` or `--debug`: writes diagnostics to stderr.
+
 ## Examples
 
 List classes for a date range:
@@ -82,6 +98,12 @@ npx --yes learn-derose classes list --from 2026-05-05 --to 2026-05-10 --json
 ```
 
 Add `--requires-booking` when the user only wants classes that can be booked.
+
+Filter classes by teacher and format:
+
+```bash
+npx --yes learn-derose classes list --teacher-id 42 --presence-type online --requires-booking --json
+```
 
 List active bookings:
 
