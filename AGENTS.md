@@ -8,6 +8,7 @@
   - `/Users/dwaynemac/GitHub/escuelaonline/docs/api_v1.md`
   - `/Users/dwaynemac/GitHub/escuelaonline/docs/oauth_provider.md`
 - Keep this CLI aligned with the Learn API contract. If behavior changes in the Rails app, update this CLI, its tests, and its README together.
+- Reflect every client change in `./skills/learn-derose-cli` as well.
 
 ## Runtime
 
